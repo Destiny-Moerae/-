@@ -1,7 +1,9 @@
 package com.hdu.my12306.controller;
 
+import com.hdu.my12306.domain.PageBean;
 import com.hdu.my12306.domain.Result;
 import com.hdu.my12306.domain.Train;
+import com.hdu.my12306.domain.TrainAll;
 import com.hdu.my12306.service.iml.TrainServiceIml;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,17 @@ public class TrainController {
     @GetMapping("/train")
     public Result QuaryTrainAll(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startTime,
                                 @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endTime,
-                                @RequestParam String sSName,@RequestParam String eSName){
+                                 @RequestParam(defaultValue = "上海虹桥")String sSName, @RequestParam(defaultValue="杭州东站") String eSName){
         Train train = new Train(sSName,eSName,startTime,endTime);
         log.info(train.toString());
         List<Train> trains = trainServiceIml.QuaryTrain(train);
         return Result.success(trains);
+    }
+    @GetMapping("/allTrain")
+    public Result page(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "2") Integer pageSize){
+        log.info("分页查询{}{}",page,pageSize);
+        PageBean pageBean = trainServiceIml.page(page,pageSize);
+        return Result.success(pageBean);
     }
 
 }
