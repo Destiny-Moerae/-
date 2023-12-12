@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -32,7 +33,10 @@ public class LoginController {
     public Result login(@RequestBody User user)
     {
         log.info("...{}",user);
-
+        String password = user.getUPwd();
+        String s1 = DigestUtils.md5DigestAsHex(password.getBytes());
+        user.setUPwd(s1);
+        log.info(user.getUPwd()+"   "+user.getUPhone());
         User u = loginServiceIml.login1(user);
         log.info("。。。{}",u);
         //登陆成功，生成令牌，下发令牌
