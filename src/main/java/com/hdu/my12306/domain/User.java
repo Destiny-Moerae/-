@@ -1,9 +1,11 @@
 package com.hdu.my12306.domain;
 
 
+import com.baomidou.mybatisplus.annotation.TableId;
 
 
 public class User {
+    @TableId
     private String uPhone;//手机号
     private String uPwd;//密码
     private String uName;//姓名

@@ -1,5 +1,6 @@
 package com.hdu.my12306.service.iml;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hdu.my12306.domain.User;
 import com.hdu.my12306.mapper.LoginMapper;
 import com.hdu.my12306.service.LoginService;
@@ -11,7 +12,7 @@ import org.springframework.util.DigestUtils;
 
 @Slf4j
 @Service
-public class LoginServiceIml implements LoginService {
+public class LoginServiceIml extends ServiceImpl<LoginMapper,User> implements LoginService {
     @Autowired
     private LoginMapper loginMapper;
 
