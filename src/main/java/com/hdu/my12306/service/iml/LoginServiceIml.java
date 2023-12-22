@@ -18,7 +18,7 @@ public class LoginServiceIml extends ServiceImpl<LoginMapper,User> implements Lo
 
     @Override
     public User login1(User user) {
-
+        log.info("test版本回退");
         return loginMapper.login1(user);
     }
 }
